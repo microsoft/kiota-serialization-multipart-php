@@ -4,9 +4,7 @@ namespace Microsoft\Kiota\Serialization\Multipart;
 
 use DateInterval;
 use DateTime;
-use GuzzleHttp\Psr7\AppendStream;
 use GuzzleHttp\Psr7\BufferStream;
-use GuzzleHttp\Psr7\PumpStream;
 use GuzzleHttp\Psr7\Utils;
 use Microsoft\Kiota\Abstractions\Enum;
 use Microsoft\Kiota\Abstractions\Serialization\Parsable;
@@ -45,7 +43,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeBooleanValue(?string $key, ?bool $value): void
     {
-        // TODO: Implement writeBooleanValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -53,7 +51,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeFloatValue(?string $key, ?float $value): void
     {
-        // TODO: Implement writeFloatValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -61,7 +59,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeIntegerValue(?string $key, ?int $value): void
     {
-        // TODO: Implement writeIntegerValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -69,7 +67,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeDateTimeValue(?string $key, ?DateTime $value): void
     {
-        throw new NotImplementedException('writeDateTimeValue');
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -77,7 +75,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeCollectionOfObjectValues(?string $key, ?array $values): void
     {
-        throw new NotImplementedException('writeCollectionOfObjectValues');
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -103,7 +101,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeEnumValue(?string $key, ?Enum $value): void
     {
-        // TODO: Implement writeEnumValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -111,7 +109,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeCollectionOfEnumValues(?string $key, ?array $values): void
     {
-        // TODO: Implement writeCollectionOfEnumValues() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -119,7 +117,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeNullValue(?string $key): void
     {
-        // TODO: Implement writeNullValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -127,7 +125,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeAdditionalData(?array $value): void
     {
-        // TODO: Implement writeAdditionalData() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -135,7 +133,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeDateValue(?string $key, ?Date $value): void
     {
-        // TODO: Implement writeDateValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -143,7 +141,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeTimeValue(?string $key, ?Time $value): void
     {
-        // TODO: Implement writeTimeValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -151,7 +149,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeDateIntervalValue(?string $key, ?DateInterval $value): void
     {
-        // TODO: Implement writeDateIntervalValue() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
@@ -159,7 +157,7 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeCollectionOfPrimitiveValues(?string $key, ?array $value): void
     {
-        // TODO: Implement writeCollectionOfPrimitiveValues() method.
+        throw new NotImplementedException(__METHOD__);
     }
 
     /**
