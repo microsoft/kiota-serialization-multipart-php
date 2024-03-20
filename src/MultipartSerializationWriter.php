@@ -6,6 +6,7 @@ use DateInterval;
 use DateTime;
 use GuzzleHttp\Psr7\BufferStream;
 use GuzzleHttp\Psr7\CachingStream;
+use GuzzleHttp\Psr7\Stream;
 use GuzzleHttp\Psr7\Utils;
 use Microsoft\Kiota\Abstractions\Enum;
 use Microsoft\Kiota\Abstractions\Serialization\Parsable;
@@ -105,10 +106,8 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function getSerializedContent(): StreamInterface
     {
-        $copy = $this->writer;
-        $cont = $copy->getContents();
-        $copy->rewind();
-        $result = Utils::streamFor($copy->read($copy->getSize() ?? 0));
+        $result = Utils::streamFor($this->writer);
+        $this->writer->rewind();
         return $result;
     }
 
