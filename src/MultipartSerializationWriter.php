@@ -5,6 +5,7 @@ namespace Microsoft\Kiota\Serialization\Multipart;
 use DateInterval;
 use DateTime;
 use GuzzleHttp\Psr7\BufferStream;
+use GuzzleHttp\Psr7\CachingStream;
 use GuzzleHttp\Psr7\Utils;
 use Microsoft\Kiota\Abstractions\Enum;
 use Microsoft\Kiota\Abstractions\Serialization\Parsable;
@@ -23,11 +24,11 @@ class MultipartSerializationWriter implements SerializationWriter
     /** @var callable|null */
     private $onStartObjectSerialization = null;
 
-    private BufferStream $writer;
+    private CachingStream $writer;
 
     public function __construct()
     {
-        $this->writer = new BufferStream();
+        $this->writer = new CachingStream(Utils::streamFor(null));
     }
 
     /**
@@ -35,7 +36,16 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeStringValue(?string $key, ?string $value): void
     {
-        // TODO: Implement writeStringValue() method.
+        if (!empty($key)) {
+            $this->writer->write($key);
+        }
+        if ($value !== null && $key !== null) {
+            $this->writer->write(": ");
+        }
+        if ($value != null) {
+            $this->writer->write($value);
+        }
+        $this->writer->write("\n");
     }
 
     /**
@@ -84,7 +94,9 @@ class MultipartSerializationWriter implements SerializationWriter
     public function writeObjectValue(?string $key, ?Parsable $value, ?Parsable ...$additionalValuesToMerge): void
     {
         $tempWriter = $this->createNewWriter();
-
+        if ($value !== null) {
+            $this->serializeValue($this, $value);
+        }
 
     }
 
@@ -93,7 +105,11 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function getSerializedContent(): StreamInterface
     {
-        return Utils::streamFor($this->writer);
+        $copy = $this->writer;
+        $cont = $copy->getContents();
+        $copy->rewind();
+        $result = Utils::streamFor($copy->read($copy->getSize() ?? 0));
+        return $result;
     }
 
     /**
@@ -173,7 +189,9 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeBinaryContent(?string $key, ?StreamInterface $value): void
     {
-        // TODO: Implement writeBinaryContent() method.
+        if (!empty($value)) {
+            $this->writer->write($value);
+        }
     }
 
     /**
