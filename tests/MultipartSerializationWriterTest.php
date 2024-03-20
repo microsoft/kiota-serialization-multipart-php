@@ -13,7 +13,10 @@ class MultipartSerializationWriterTest extends TestCase
 
     public function testWriteStringValue(): void
     {
-        $this->assertEquals(1, 1);
+        $writer = new MultipartSerializationWriter();
+        $writer->writeStringValue('name', 'Kenneth Omondi');
+        $cont = $writer->getSerializedContent();
+        $this->assertEquals("name: Kenneth Omondi\n", $cont->getContents());
     }
 
     public function testWriteBinaryContent(): void
