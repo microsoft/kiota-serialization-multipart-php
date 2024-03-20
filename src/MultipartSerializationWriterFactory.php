@@ -2,6 +2,7 @@
 
 namespace Microsoft\Kiota\Serialization\Multipart;
 
+use InvalidArgumentException;
 use Microsoft\Kiota\Abstractions\Serialization\SerializationWriter;
 use Microsoft\Kiota\Abstractions\Serialization\SerializationWriterFactory;
 
@@ -13,7 +14,10 @@ class MultipartSerializationWriterFactory implements SerializationWriterFactory
      */
     public function getSerializationWriter(string $contentType): SerializationWriter
     {
-        // TODO: Implement getSerializationWriter() method.
+        if (strcasecmp($this->getValidContentType(), $contentType) !== 0) {
+            throw new InvalidArgumentException("Expected {$this->getValidContentType()} as content type $contentType given.");
+        }
+        return new MultipartSerializationWriter();
     }
 
     /**
@@ -21,6 +25,6 @@ class MultipartSerializationWriterFactory implements SerializationWriterFactory
      */
     public function getValidContentType(): string
     {
-        // TODO: Implement getValidContentType() method.
+        return 'multipart/form-data';
     }
 }
