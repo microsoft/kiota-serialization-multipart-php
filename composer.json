@@ -11,16 +11,24 @@
   "license": ["MIT"],
   "autoload": {
     "psr-4": {
-      "Microsoft\\Kiota\\Serialization\\Multipart\\": "src",
-      "Microsoft\\Kiota\\Serialization\\Tests\\": "tests"
+      "Microsoft\\Kiota\\Serialization\\Multipart\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Microsoft\\Kiota\\Serialization\\Multipart\\Tests\\": "tests"
     }
   },
   "require": {
-    "microsoft/kiota-abstractions": "^1.1.0",
+    "microsoft/kiota-abstractions": "dev-feat/multipart-body",
     "guzzlehttp/psr7": "^1.6 || ^2",
     "php": "^7.4 || ^8",
     "ext-json": "*"
   },
+  "repositories": [{
+    "type": "path",
+    "url": "../kiota-abstractions-php"
+  }],
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^8 || ^9",
