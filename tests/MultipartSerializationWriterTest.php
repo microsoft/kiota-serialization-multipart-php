@@ -10,7 +10,8 @@ use Microsoft\Kiota\Abstractions\Types\Date;
 use Microsoft\Kiota\Abstractions\Types\Time;
 use Microsoft\Kiota\Serialization\Multipart\Exceptions\NotImplementedException;
 use Microsoft\Kiota\Serialization\Multipart\MultipartSerializationWriter;
-use Microsoft\Kiota\Serialization\Tests\Samples\Person;
+use Microsoft\Kiota\Serialization\Multipart\Tests\Samples\Gender;
+use Microsoft\Kiota\Serialization\Multipart\Tests\Samples\Person;
 use PHPUnit\Framework\TestCase;
 
 class MultipartSerializationWriterTest extends TestCase
@@ -94,7 +95,7 @@ class MultipartSerializationWriterTest extends TestCase
     {
         $this->expectException(NotImplementedException::class);
         $writer = new MultipartSerializationWriter();
-        $writer->writeEnumValue('gender', new \Microsoft\Kiota\Serialization\Tests\Samples\Gender('male'));
+        $writer->writeEnumValue('gender', new Gender('male'));
     }
 
     public function testWriteCollectionOfEnumValues(): void

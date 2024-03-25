@@ -20,15 +20,11 @@
     }
   },
   "require": {
-    "microsoft/kiota-abstractions": "dev-feat/multipart-body",
+    "microsoft/kiota-abstractions": "^1.2.0",
     "guzzlehttp/psr7": "^1.6 || ^2",
     "php": "^7.4 || ^8",
     "ext-json": "*"
   },
-  "repositories": [{
-    "type": "path",
-    "url": "../kiota-abstractions-php"
-  }],
   "require-dev": {
     "roave/security-advisories": "dev-latest",
     "phpunit/phpunit": "^8 || ^9",

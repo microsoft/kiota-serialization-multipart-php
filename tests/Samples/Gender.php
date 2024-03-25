@@ -1,6 +1,6 @@
 <?php
 
-namespace Microsoft\Kiota\Serialization\Tests\Samples;
+namespace Microsoft\Kiota\Serialization\Multipart\Tests\Samples;
 
 use Microsoft\Kiota\Abstractions\Enum;
 
