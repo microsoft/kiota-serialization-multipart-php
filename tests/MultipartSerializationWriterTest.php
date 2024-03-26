@@ -46,6 +46,17 @@ class MultipartSerializationWriterTest extends TestCase
         $this->assertStringContainsString('bio: I am a young professional passionate about coding.', $cont);
     }
 
+    public function testWriteParsableNonMultipartBody(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $person = new Person();
+        $person->setName('John Doe');
+        $person->setBio(Utils::streamFor('I am grateful.'));
+
+        $writer = new MultipartSerializationWriter();
+        $writer->writeObjectValue('person', $person);
+    }
+
     public function testWriteBooleanValue(): void
     {
         $this->expectException(NotImplementedException::class);
@@ -170,7 +181,7 @@ class MultipartSerializationWriterTest extends TestCase
         $multipartBody->setRequestAdapter($this->adapter);
         $multipartBody->addOrReplacePart('person', 'application/json', $person);
 
-        $writer->writeObjectValue('person', $multipartBody);
+        $writer->writeAnyValue('person', $multipartBody);
         $this->assertStringContainsString("Content-Type: application/json\nContent-Disposition: form-data; name=\"person\"", (string)$writer->getSerializedContent());
         $this->assertStringContainsString('Content-Disposition: form-data; name="person"', (string)$writer->getSerializedContent());
     }
