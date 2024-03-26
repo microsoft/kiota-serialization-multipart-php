@@ -184,7 +184,16 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function writeAnyValue(?string $key, $value): void
     {
-        // TODO: Implement writeAnyValue() method.
+        if ($value instanceof StreamInterface) {
+            $this->writeBinaryContent($key, $value);
+        } elseif (is_string($value)){
+            $this->writeStringValue($key, $value);
+        } elseif ($value instanceof MultiPartBody){
+            $this->writeObjectValue($key, $value);
+        } else {
+            $type = get_debug_type($value);
+            throw new InvalidArgumentException("Serialization of $type is not supported.");
+        }
     }
 
     /**

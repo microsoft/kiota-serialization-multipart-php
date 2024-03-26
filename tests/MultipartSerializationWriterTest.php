@@ -6,6 +6,9 @@ use DateTime;
 use DateTimeInterface;
 use Exception;
 use GuzzleHttp\Psr7\Utils;
+use InvalidArgumentException;
+use Microsoft\Kiota\Abstractions\MultiPartBody;
+use Microsoft\Kiota\Abstractions\RequestAdapter;
 use Microsoft\Kiota\Abstractions\Types\Date;
 use Microsoft\Kiota\Abstractions\Types\Time;
 use Microsoft\Kiota\Serialization\Multipart\Exceptions\NotImplementedException;
@@ -17,12 +20,18 @@ use PHPUnit\Framework\TestCase;
 class MultipartSerializationWriterTest extends TestCase
 {
 
+    private RequestAdapter $adapter;
     public function testWriteStringValue(): void
     {
         $writer = new MultipartSerializationWriter();
         $writer->writeStringValue('name', 'Kenneth Omondi');
         $cont = $writer->getSerializedContent();
         $this->assertEquals("name: Kenneth Omondi\n", $cont->getContents());
+    }
+
+    public function setUp(): void
+    {
+        $this->adapter = $this->createMock(RequestAdapter::class);
     }
 
     public function testWriteBinaryContent(): void
@@ -81,7 +90,11 @@ class MultipartSerializationWriterTest extends TestCase
 
     public function testWriteAnyValue(): void
     {
-        $this->assertEquals(1, 1);
+        $this->expectException(InvalidArgumentException::class);
+        $writer = new MultipartSerializationWriter();
+        $writer->writeAnyValue('name', 'John Doe');
+        $this->assertEquals("name: John Doe\n", (string)$writer->getSerializedContent());
+        $writer->writeAnyValue("people", 10);
     }
 
     public function testWriteCollectionOfObjectValues(): void
@@ -125,7 +138,16 @@ class MultipartSerializationWriterTest extends TestCase
 
     public function testWriteObjectValue(): void
     {
-        $this->assertEquals(1, 1);
+        $writer = new MultipartSerializationWriter();
+        $multipartBody = new MultiPartBody();
+        $person = new Person();
+        $person->setName('John Doe');
+        $person->setBio(Utils::streamFor("I am a young professional passionate about coding."));
+        $multipartBody->setRequestAdapter($this->adapter);
+        $multipartBody->addOrReplacePart('person', 'application/json', $person);
+
+        $writer->writeObjectValue('person', $multipartBody);
+        $this->assertStringContainsString('Content-Disposition: form-data; name="person"', (string)$writer->getSerializedContent());
     }
 
     /**
@@ -140,7 +162,17 @@ class MultipartSerializationWriterTest extends TestCase
 
     public function testGetSerializedContent(): void
     {
-        $this->assertEquals(1, 1);
+        $writer = new MultipartSerializationWriter();
+        $multipartBody = new MultiPartBody();
+        $person = new Person();
+        $person->setName('John Doe');
+        $person->setBio(Utils::streamFor("I am a young professional passionate about coding."));
+        $multipartBody->setRequestAdapter($this->adapter);
+        $multipartBody->addOrReplacePart('person', 'application/json', $person);
+
+        $writer->writeObjectValue('person', $multipartBody);
+        $this->assertStringContainsString("Content-Type: application/json\nContent-Disposition: form-data; name=\"person\"", (string)$writer->getSerializedContent());
+        $this->assertStringContainsString('Content-Disposition: form-data; name="person"', (string)$writer->getSerializedContent());
     }
 
     public function testWriteIntegerValue(): void
