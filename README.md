@@ -1,14 +1,26 @@
-# Project
+# Kiota Multipart Body Serialization Library for PHP
 
-> This repo has been populated by an initial template to help get you started. Please
-> make sure to update the content to build a great experience for community-building.
+![Build Status](https://github.com/microsoft/kiota-serialization-multipart-php/actions/workflows/pr-validation.yml/badge.svg)
+[![Latest Stable Version](https://poser.pugx.org/microsoft/kiota-serialization-multipart/version)](https://packagist.org/packages/microsoft/kiota-serialization-json)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=microsoft_kiota-serialization-multipart-php&metric=coverage)](https://sonarcloud.io/dashboard?id=microsoft_kiota-serialization-multipart-php)
 
-As the maintainer of this project, please make a few updates:
+The Multipart Serialization Library for PHP is the PHP Multipart serialization library implementation.
 
-- Improving this README.MD file to provide a great experience
-- Updating SUPPORT.MD with content about this project's support experience
-- Understanding the security reporting process in SECURITY.MD
-- Remove this section from the README
+A [Kiota](https://github.com/microsoft/kiota) generated project will need a reference to a multipart serialization package to handle multipart body payloads from an API endpoint.
+
+Read more about Kiota [here](https://github.com/microsoft/kiota/blob/main/README.md).
+
+## Using the Kiota JSON Serialization Library for PHP
+
+run `composer require microsoft/kiota-serialization-json` or add the following to your `composer.json` file:
+
+```Shell
+{
+    "require": {
+        "microsoft/kiota-serialization-multipart": "^0.1.0"
+    }
+}
+```
 
 ## Contributing
 
@@ -26,8 +38,8 @@ contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additio
 
 ## Trademarks
 
-This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft 
-trademarks or logos is subject to and must follow 
+This project may contain trademarks or logos for projects, products, or services. Authorized use of Microsoft
+trademarks or logos is subject to and must follow
 [Microsoft's Trademark & Brand Guidelines](https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks/usage/general).
 Use of Microsoft trademarks or logos in modified versions of this project must not cause confusion or imply Microsoft sponsorship.
 Any use of third-party trademarks or logos are subject to those third-party's policies.
