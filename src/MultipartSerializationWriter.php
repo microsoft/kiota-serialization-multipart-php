@@ -110,9 +110,8 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function getSerializedContent(): StreamInterface
     {
-        $result = Utils::streamFor($this->writer);
         $this->writer->rewind();
-        return $result;
+        return $this->writer;
     }
 
     /**
