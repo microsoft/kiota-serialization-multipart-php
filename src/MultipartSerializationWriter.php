@@ -25,11 +25,12 @@ class MultipartSerializationWriter implements SerializationWriter
     /** @var callable|null */
     private $onStartObjectSerialization = null;
 
-    private CachingStream $writer;
+    private StreamInterface $writer;
 
     public function __construct()
     {
-        $this->writer = new CachingStream(Utils::streamFor(null));
+        // Initialize empty stream
+        $this->writer = Utils::streamFor(null);
     }
 
     /**
@@ -110,9 +111,8 @@ class MultipartSerializationWriter implements SerializationWriter
      */
     public function getSerializedContent(): StreamInterface
     {
-        $result = Utils::streamFor($this->writer);
         $this->writer->rewind();
-        return $result;
+        return $this->writer;
     }
 
     /**
